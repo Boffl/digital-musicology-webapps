@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dandrieu Harmonization</title>
+</head>
+<body>
+<h1>Dandrieu Harmonization</h1>
+
+
+<form action="harmonize" method="get">
+    <label for="timeSig">Choose a Time signature:</label>
+    <select name="timeSig" id="timeSig">
+        <option value="4/4">4/4</option>
+        <option value="3/4">3/4</option>
+    </select>
+
+    <label for="keySig_note">Choose a Key:</label>
+    <select name="keySig" id="keySig">
+        <option value="C Major">C Major</option>
+        <option value="A Minor">A Minor</option>
+        <option value="G Major">G Major</option>
+        <option value="E Minor">E Minor</option>
+        <option value="D Major">D Major</option>
+        <option value="B Minor">B Minor</option>
+        <option value="A Major">A Major</option>
+        <option value="F# Minor">F# Minor</option>
+        <option value="E Major">E Major</option>
+        <option value="C# Minor">C# Minor</option>
+        <option value="B Major">B Major</option>
+        <option value="G# Minor">G# Minor</option>
+        <option value="F# Major">F# Major</option>
+        <option value="D# Minor">D# Minor</option>
+        <option value="Gb Major">Gb Major</option>
+        <option value="Eb Minor">Eb Minor</option>
+        <option value="Db Major">Db Major</option>
+        <option value="Bb Minor">Bb Minor</option>
+        <option value="Ab Major">Ab Major</option>
+        <option value="F Minor">F Minor</option>
+        <option value="Eb Major">Eb Major</option>
+        <option value="C Minor">C Minor</option>
+        <option value="Bb Major">Bb Major</option>
+        <option value="G Minor">G Minor</option>
+        <option value="F Major">F Major</option>
+        <option value="D Minor">D Minor</option>
+    </select>
+    <br><br>
+    <label for="bass_line">Bass Line</label>
+    <input type="text" id="bass_line" name="bass_line">
+
+    <button type="submit">Harmonize Bass line</button>
+
+</form>
+<p>
+    <b>Please Note:</b> To input the bass line use music21's "Tinynotation". A short explanation follows, for more information see
+    <a href="http://web.mit.edu/music21/doc/moduleReference/moduleTinyNotation.html">documentation for music21</a>.
+    <ol>
+        <li>Note names are: a,b,c,d,e,f,g and r for rest</li>
+        <li>Flats, sharps, and naturals are notated as #,- (not b), and (if needed) n.</li>
+        <li>Note octaves are specified as follows:
+            <ul>
+                <li>CC to BB = from C below bass clef to second-line B in bass clef</li>
+                <li>C to B = from bass clef C to B below middle C.</li>
+                <li>c  to b = from middle C to the middle of treble clef</li>
+                <li>c' to b' = from C in treble clef to B above treble clef</li>
+            </ul></li>
+        <li>After the note name, a number may be placed indicating the note length: 1 = whole note, 2 = half, 4 = quarter, 8 = eighth, 16 = sixteenth. etc.<br>
+            If the number is omitted then it is assumed to be the same as the previous note.</li>
+    </ol>
+
+    As an example the following Input: G8 A B- c A4 E#8 G <br>
+    represents this bass line: <br>
+    {% load static %}
+    <img src="{% static 'dandrieu/example_bass_line.PNG' %}" alt="bass_line" style="width: 200px; height: auto">
+</p>
+
+</body>
+</html>

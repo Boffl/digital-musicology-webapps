@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--- <meta charset="UTF-8"> -->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title>Harmonization</title>
+
+</head>
+<body>
+<h1>Harmonized Bass Line</h1>
+
+{% load static %}
+<script src="{% static 'dandrieu/opensheetmusicdisplay.min.js' %}"></script>
+<h3>Requested input:</h3>
+<ul>
+    <li>{{ timeSig_str }}</li>
+    <li>{{ keySig_str }}</li>
+    <li>{{ bass_line_str }}</li>
+</ul>
+<button onclick="window.location.reload(false)">Other Solution</button>
+<button onclick="window.history.back()">New Input</button>
+<div id="osmdCanvas" style="width: 100%"/>
+<p hidden id="musicxml_str">
+    {{ musicxml_str }}
+</p>
+<script>
+    // render the musicxml
+    var musicxmlString = document.getElementById("musicxml_str").innerText
+    console.log(musicxmlString)
+    var osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay("osmdCanvas");
+    osmd.load(musicxmlString);
+    osmd.render();
+</script>
+</body>
+</html>
