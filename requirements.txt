@@ -9,3 +9,4 @@ tzdata==2022.1
 webcolors==1.11.1
 gunicorn
 django-heroku
+whitenoise
