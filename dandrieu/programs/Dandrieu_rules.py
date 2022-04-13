@@ -30,7 +30,7 @@ def triplewise(iterable):
 
 def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
                          timeSig: m21.meter.TimeSignature,
-                         seventh = False) -> m21.figuredBass.realizer.FiguredBassLine:
+                         seventh=True) -> m21.figuredBass.realizer.FiguredBassLine:
     """ applies Dandrieus Rules to harmonize a bass line.
     :ivar: a list of bass notes as well as key and time signature
     :return: a ~music21.figuredBass.realizer.FiguredBassLine object"""
@@ -38,7 +38,7 @@ def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
 
     dandrieu_dictionary = {
         'major': {
-            # (empty string defaults to 3,5), # note I add the empty string anyway
+            # (empty string defaults to 3,5),
             1: '3,5,8', 5:'3,5,8', # the naturel
             (2, 3): '6,4,3', (2, 1): '6,4,3', (6, 5): '#6,4,3',  # petite sixte
             3: '6, 8, 3', # sixte simple
