@@ -2,6 +2,10 @@
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
+# I should not need this, maybe it was tracked before I added the gitignore?
+mysite/__pycache__/
+dandrieu/__pycache__/
+dandrieu/programs/__pycache__/
 *.py[cod]
 *$py.class
 
