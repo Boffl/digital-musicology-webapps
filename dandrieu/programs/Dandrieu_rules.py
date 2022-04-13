@@ -39,13 +39,14 @@ def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
     dandrieu_dictionary = {
         'major': {
             # (empty string defaults to 3,5),
+            # 2:'6, 6', # Delete this again!!!
             1: '3,5,8', 5:'3,5,8', # the naturel
             (2, 3): '6,4,3', (2, 1): '6,4,3', (6, 5): '#6,4,3',  # petite sixte
-            3: '6, 8, 3', # sixte simple
+            3: '6,3', # sixte simple
             6: '6', (6, 7): '6', (7, 6): '6',   # sixte doublee
             (4, 5): '6,5',  # quinte et sixte
             (7, 1): '5,6,3',  # fausse quinte
-            (4, 3): '4,6,2',  # l'accord de tritone
+            (4, 3): '4,6,2',  # l'accord de tritone # Todo: 5-4-3...
             # TODO: 6-4-5, 4-6-5, 2-7-1, 7,2,1 Terztäusche einbauen!
             (6, 4): '3,6,4',  # Terztausch
             (1, 1, 7): '4,6,2',  # initialformel
@@ -154,7 +155,10 @@ def realize_fb(fbLine:m21.figuredBass.realizer.FiguredBassLine)->str:
     '''returns a string of musicxml, from a random solution to the figured bass line object'''
     fbLine.realize()
     fbRules = rules.Rules()  # in case you want to change the rules?
-    fbRules.partMovementLimits = [(1, 5), (2, 5), (3, 5)]
+    fbRules.forbidHiddenOctaves = False
+    fbRules.forbidHiddenFifths = False
+    fbRules.applySinglePossibRulesToResolution = True
+    # fbRules.partMovementLimits = [(1, 5), (2, 5), (3, 5)]
     allSols = fbLine.realize(fbRules)  # get all solutions
     realization = allSols.generateRandomRealization()  # choose one solution
 
@@ -247,14 +251,18 @@ def get_user_input():
 
 
 if __name__ == '__main__':
-    inbass = m21.converter.parse('data/d_minor.musicxml')
-    notes, keySig, timeSig = parse_bass(inbass)
+    # inbass = m21.converter.parse('data/d_minor.musicxml')
+    # notes, keySig, timeSig = parse_bass(inbass)
 
-    # notes, keySig, timeSig = get_user_input()
+    notes, keySig, timeSig = get_user_input()
     # get the fb_line with the figures
     fbLine = dandrieu_octave_rule(notes, keySig, timeSig)
+    fbRules = rules.Rules()
+    allSols = fbLine.realize(fbRules)
+    oneSol = allSols.generateRandomRealization()
+    oneSol.show('text')
     musicxml_str = realize_fb(fbLine)
-    print(musicxml_str)
+    # print(musicxml_str)
 
     '''
     fbLine.realize()
