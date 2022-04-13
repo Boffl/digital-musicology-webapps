@@ -38,24 +38,28 @@ def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
 
     dandrieu_dictionary = {
         'major': {
-            # 1: '', 5: '',  # the naturel (empty string defaults to 3,5), # note I add the empty string anyway
-            6: '6', # a sixth cord if it starts with the 6...
+            # (empty string defaults to 3,5), # note I add the empty string anyway
+            1: '3,5,8', 5:'3,5,8', # the naturel
             (2, 3): '6,4,3', (2, 1): '6,4,3', (6, 5): '#6,4,3',  # petite sixte
-            3: '6', (6, 7): '6', (7, 6): '6',  # sixte simple / sixte doublee
+            3: '6, 8, 3', # sixte simple
+            6: '6', (6, 7): '6', (7, 6): '6',   # sixte doublee
             (4, 5): '6,5',  # quinte et sixte
             (7, 1): '5,6,3',  # fausse quinte
             (4, 3): '4,6,2',  # l'accord de tritone
+            # TODO: 6-4-5, 4-6-5, 2-7-1, 7,2,1 Terztäusche einbauen!
             (6, 4): '3,6,4',  # Terztausch
             (1, 1, 7): '4,6,2',  # initialformel
 
         },
         'minor': {
-            1: '', 5: '#3,5,8', 6: '6',
+            1: '3,5,8', 5: '#3,5,8',
             (2, 3): '#6,4,3', (6, 5): '6,4,3', (2, 1): '#6,4,3',
-            3: '6', (6, 7): '6', (7, 6): '6',
+            3: '3,6,8',
+            6: '6', (6, 7): '6', (7, 6): '6',
             (4, 5): '6,5',
             (7, 1): '5,6,3',
             (4, 3): '#4,2,6',
+            # TODO: 6-4-5, 4-6-5, 2-7-1, 7,2,1 Terztäusche einbauen!
             (6, 4): '3,6,4',  # Terztausch
             (2, 7): '5, #6, 3',  # Alternativakkord
             (2, 7, 1): '7, 5, 3',  # die sieben, falls sie durch den Alternativakkord auf der 2 vorbereitet ist
