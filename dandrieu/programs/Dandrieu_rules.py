@@ -30,7 +30,7 @@ def triplewise(iterable):
 
 def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
                          timeSig: m21.meter.TimeSignature,
-                         seventh=True) -> m21.figuredBass.realizer.FiguredBassLine:
+                         seventh=False) -> m21.figuredBass.realizer.FiguredBassLine:
     """ applies Dandrieus Rules to harmonize a bass line.
     :ivar: a list of bass notes as well as key and time signature
     :return: a ~music21.figuredBass.realizer.FiguredBassLine object"""
@@ -42,20 +42,28 @@ def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
             # 2:'6, 6', # Delete this again!!!
             1: '3,5,8', 5:'3,5,8', # the naturel
             (2, 3): '6,4,3', (2, 1): '6,4,3', (6, 5): '#6,4,3',  # petite sixte
-            3: '6,3', # sixte simple
+            3: '3,6', # sixte simple: Funktioniert irgentwie nicht mit der 8...
             6: '6', (6, 7): '6', (7, 6): '6',   # sixte doublee
             (4, 5): '6,5',  # quinte et sixte
             (7, 1): '5,6,3',  # fausse quinte
             (4, 3): '4,6,2',  # l'accord de tritone # Todo: 5-4-3...
             # TODO: 6-4-5, 4-6-5, 2-7-1, 7,2,1 Terztäusche einbauen!
-            (6, 4): '3,6,4',  # Terztausch
+            # Terztausch, sollte eigentlich die zwei folgenden Noten anschauen...
+            # Aber vorerst mal ausklammern, dass es eine 6-4-3 Bewegung gibt, dann ist vllt auch die Tonart anders
+            (6, 4): '3,6,4',
+            # (4,6): '??',  # weiss nicht genau
+            (2, 7): '3,4,6',
+            (7,2): '5,6,3',
             (1, 1, 7): '4,6,2',  # initialformel
+            'Terztausch':{
+                (6,4,5): '3,4,6'
+            },
 
         },
         'minor': {
             1: '3,5,8', 5: '#3,5,8',
             (2, 3): '#6,4,3', (6, 5): '6,4,3', (2, 1): '#6,4,3',
-            3: '3,6,8',
+            3: '3,6',
             6: '6', (6, 7): '6', (7, 6): '6',
             (4, 5): '6,5',
             (7, 1): '5,6,3',
@@ -63,6 +71,7 @@ def dandrieu_octave_rule(notes: List[m21.note.Note], keySig: m21.key.Key,
             # TODO: 6-4-5, 4-6-5, 2-7-1, 7,2,1 Terztäusche einbauen!
             (6, 4): '3,6,4',  # Terztausch
             (2, 7): '5, #6, 3',  # Alternativakkord
+            (7, 2): '5, 3, 6',
             (2, 7, 1): '7, 5, 3',  # die sieben, falls sie durch den Alternativakkord auf der 2 vorbereitet ist
             (1, 1, 7): '4,6,2',  # initialformel
         }
@@ -155,8 +164,9 @@ def realize_fb(fbLine:m21.figuredBass.realizer.FiguredBassLine)->str:
     '''returns a string of musicxml, from a random solution to the figured bass line object'''
     fbLine.realize()
     fbRules = rules.Rules()  # in case you want to change the rules?
-    fbRules.forbidHiddenOctaves = False
-    fbRules.forbidHiddenFifths = False
+    # fbRules.resolveDominantSeventhProperly = False
+    # fbRules.forbidHiddenOctaves = False
+    # fbRules.forbidHiddenFifths = False
     fbRules.applySinglePossibRulesToResolution = True
     # fbRules.partMovementLimits = [(1, 5), (2, 5), (3, 5)]
     allSols = fbLine.realize(fbRules)  # get all solutions
